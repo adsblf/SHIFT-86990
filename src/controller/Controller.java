@@ -61,7 +61,7 @@ public class Controller {
         FileWriter.writeDataToTxt(sortedData.get("int"),
                 cliArgs.getOutputPath(),
                 cliArgs.getPrefix(),
-                "int.txt",
+                "integers.txt",
                 cliArgs.isAddingMode());
 
         // Запись Float

@@ -20,7 +20,10 @@ public class FileWriter {
         try {
             Path path = Paths.get(new File(outputPath, (prefix + fileName)).getAbsolutePath());
             if (addingMode)
-                Files.write(path, arrayList.stream().map(Object::toString).toList(), StandardOpenOption.APPEND);
+                if(!Files.exists(path))
+                    Files.write(path, arrayList.stream().map(Object::toString).toList());
+                else
+                    Files.write(path, arrayList.stream().map(Object::toString).toList(), StandardOpenOption.APPEND);
             else
                 Files.write(path, arrayList.stream().map(Object::toString).toList());
         } catch (IOException e) {
