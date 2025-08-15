@@ -18,7 +18,16 @@ public class FileWriter {
             f.mkdirs();
 
         try {
-            Path path = Paths.get(new File(outputPath, (prefix + fileName)).getAbsolutePath());
+            File outputFile = new File(outputPath);
+            Path path;
+
+            if (outputFile.isAbsolute()) {
+                path = Paths.get(outputFile.getAbsolutePath(), prefix + fileName);
+            } else {
+                String curDir = System.getProperty("user.dir");
+                path = Paths.get(curDir,outputPath, prefix + fileName);
+            }
+
             if (addingMode)
                 if(!Files.exists(path))
                     Files.write(path, arrayList.stream().map(Object::toString).toList());
