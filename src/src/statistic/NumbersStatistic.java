@@ -55,7 +55,7 @@ public class NumbersStatistic<T extends Number> extends Statistic<T> {
         return arrayList.stream()
                 .mapToDouble(Number::doubleValue)
                 .average()
-                .getAsDouble();
+                .orElse(0.0);
     }
 
     public String getShortStatistic() {
