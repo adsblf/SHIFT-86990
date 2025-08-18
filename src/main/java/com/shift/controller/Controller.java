@@ -1,9 +1,9 @@
-package main.java.com.shift.controller;
+package com.shift.controller;
 
-import main.java.com.shift.cli.CliArgs;
-import main.java.com.shift.fileio.*;
-import main.java.com.shift.datasort.DataSort;
-import main.java.com.shift.statistic.*;
+import com.shift.cli.CliArgs;
+import com.shift.fileio.*;
+import com.shift.datasort.DataSort;
+import com.shift.statistic.*;
 
 import java.util.HashMap;
 import java.util.List;

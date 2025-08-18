@@ -1,4 +1,4 @@
-package main.java.com.shift.datasort;
+package com.shift.datasort;
 
 import java.util.HashMap;
 import java.util.List;
