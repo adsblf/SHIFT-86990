@@ -5,6 +5,8 @@ import com.shift.fileio.*;
 import com.shift.datasort.DataSort;
 import com.shift.statistic.*;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,8 +60,8 @@ public class Controller {
     private static void showShortStatistic(HashMap<String, List<?>> sortedData) {
         System.out.println(
                 "Краткая статистика:\n" +
-                        "Integers:\n" + new NumbersStatistic<>((List<Integer>) sortedData.get("int")).getShortStatistic() + "\n\n" +
-                        "Floats:\n" + new NumbersStatistic<>((List<Float>) sortedData.get("float")).getShortStatistic() + "\n\n" +
+                        "Integers:\n" + new NumbersStatistic<>((List<BigInteger>) sortedData.get("int")).getShortStatistic() + "\n\n" +
+                        "Floats:\n" + new NumbersStatistic<>((List<BigDecimal>) sortedData.get("float")).getShortStatistic() + "\n\n" +
                         "Strings:\n" + new StringsStatistic((List<String>) sortedData.get("String")).getShortStatistic() + "\n"
         );
     }
@@ -72,8 +74,8 @@ public class Controller {
     private static void showFullStatistics(HashMap<String, List<?>> sortedData) {
         System.out.println(
                 "Полная статистика:\n" +
-                        "Integers:\n" + new NumbersStatistic<>((List<Integer>) sortedData.get("int")).getFullStatistics() + "\n\n" +
-                        "Floats:\n" + new NumbersStatistic<>((List<Float>) sortedData.get("float")).getFullStatistics() + "\n\n" +
+                        "Integers:\n" + new NumbersStatistic<>((List<BigInteger>) sortedData.get("int")).getFullStatistics() + "\n\n" +
+                        "Floats:\n" + new NumbersStatistic<>((List<BigDecimal>) sortedData.get("float")).getFullStatistics() + "\n\n" +
                         "Strings:\n" + new StringsStatistic((List<String>) sortedData.get("String")).getFullStatistics() + "\n"
         );
     }

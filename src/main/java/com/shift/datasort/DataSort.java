@@ -1,5 +1,7 @@
 package com.shift.datasort;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -16,14 +18,14 @@ public class DataSort {
      * Извлекает числа с плавающей точкой из переданного списка.
      *
      * @param data - список строк.
-     * @return List<Float> - список Float.
+     * @return List<BigDecimal> - список BigDecimal.
      */
-    public static List<Float> extractFloatsFromList(List<String> data) {
+    public static List<BigDecimal> extractFloatsFromList(List<String> data) {
         return data.stream()
                 .map(str -> {
                     if (str.contains(".")) {
                         try {
-                            return Float.valueOf(str);
+                            return new BigDecimal(str);
                         } catch (Exception e) {
                             return null;
                         }
@@ -39,13 +41,13 @@ public class DataSort {
      * Извлекает целочисленные значения из переданного списка.
      *
      * @param data - список строк.
-     * @return List<Integer> - список Integer.
+     * @return List<BigInteger> - список BigInteger.
      */
-    public static List<Integer> extractIntegersFromList(List<String> data) {
+    public static List<BigInteger> extractIntegersFromList(List<String> data) {
         return data.stream()
                 .map(str -> {
                     try {
-                        return Integer.valueOf(str);
+                        return new BigInteger(str);
                     } catch (Exception e) {
                         return null;
                     }

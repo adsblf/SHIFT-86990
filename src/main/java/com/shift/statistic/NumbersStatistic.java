@@ -1,7 +1,11 @@
 package com.shift.statistic;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Класс для сбора статистики из списка объектов, унаследованных от Number.
@@ -12,8 +16,8 @@ import java.util.List;
 public class NumbersStatistic<T extends Number> extends Statistic<T> {
     private T maxNum;
     private T minNum;
-    private double sumNum;
-    private double averageNum;
+    private BigDecimal sumNum;
+    private BigDecimal averageNum;
 
     public NumbersStatistic(List<T> arrayList) {
         super(arrayList);
@@ -31,11 +35,11 @@ public class NumbersStatistic<T extends Number> extends Statistic<T> {
         return minNum;
     }
 
-    public double getSumNum() {
+    public BigDecimal getSumNum() {
         return sumNum;
     }
 
-    public double getAverageNum() {
+    public BigDecimal getAverageNum() {
         return averageNum;
     }
 
@@ -67,25 +71,43 @@ public class NumbersStatistic<T extends Number> extends Statistic<T> {
      * Суммирует все элементы списка.
      *
      * @param arrayList - список элементов.
-     * @return сумма элементов типа double.
+     * @return сумма элементов типа BigDecimal.
      */
-    private double sumNum (List<T> arrayList) {
+    private BigDecimal sumNum(List<T> arrayList) {
         return arrayList.stream()
-                .mapToDouble(Number::doubleValue)
-                .sum();
+                .filter(Objects::nonNull)
+                .map(NumbersStatistic::convertToBigDecimal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     /**
      * Ищет среднее значение чисел в списке.
      *
      * @param arrayList - список элементов.
-     * @return среднее значение типа double.
+     * @return среднее значение типа BigDecimal.
      */
-    private double averageNum (List<T> arrayList) {
-        return arrayList.stream()
-                .mapToDouble(Number::doubleValue)
-                .average()
-                .orElse(0.0);
+    private BigDecimal averageNum(List<T> arrayList) {
+        return sumNum(arrayList)
+                .divide(new BigDecimal(arrayList.size()), RoundingMode.HALF_UP);
+    }
+
+    /**
+     * Конвертирует объекты типа Number в BigDecimal
+     *
+     * @param obj - любой объект
+     * @return приведенное число к типу BigDecimal
+     * @exception IllegalArgumentException - если не удалось привести объект к типу BigDecimal
+     */
+    private static BigDecimal convertToBigDecimal(Object obj) {
+        if (obj instanceof BigDecimal) {
+            return (BigDecimal) obj;
+        } else if (obj instanceof BigInteger) {
+            return new BigDecimal((BigInteger) obj);
+        } else if (obj instanceof Number) {
+            return new BigDecimal(((Number) obj).doubleValue());
+        } else {
+            throw new IllegalArgumentException("Непонятный тип данных, я с таким не умею работать =(");
+        }
     }
 
     /**
