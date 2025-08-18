@@ -1,4 +1,4 @@
-package fileio;
+package main.java.com.shift.fileio;
 
 import java.io.File;
 import java.io.IOException;

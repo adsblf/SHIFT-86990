@@ -1,4 +1,4 @@
-package cli;
+package main.java.com.shift.cli;
 
 import java.util.ArrayList;
 import java.util.Arrays;

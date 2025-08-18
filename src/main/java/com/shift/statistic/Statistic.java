@@ -1,4 +1,4 @@
-package statistic;
+package main.java.com.shift.statistic;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package fileio;
+package main.java.com.shift.fileio;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
