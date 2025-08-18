@@ -16,7 +16,7 @@ public class CliArgs {
     private final String outputPath;
     private final String prefix;
     private final boolean addingMode;
-    private final boolean briefStatistics;
+    private final boolean shortStatistics;
     private final boolean fullStatistics;
     private final List<String> files;
 
@@ -25,11 +25,17 @@ public class CliArgs {
         this.outputPath = getOutputPathFromArgs(arrayListArgs);
         this.prefix = getPrefixFromArgs(arrayListArgs);
         this.addingMode = isAddingMode(arrayListArgs);
-        this.briefStatistics = isBriefStatistics(arrayListArgs);
+        this.shortStatistics = isShortStatistics(arrayListArgs);
         this.fullStatistics = isFullStatistics(arrayListArgs);
         this.files = findAllFilesInArgs(arrayListArgs);
     }
 
+    /**
+     * Определяет путь для сохранения файлов, в зависимости от наличия параметра "-o" его аргумента.
+     *
+     * @param arrayListArgs - список параметров, полученных из командной строки при запуске программы (String[] args).
+     * @return строка с путем для сохранения файлов.
+     */
     private String getOutputPathFromArgs(ArrayList<String> arrayListArgs) {
         if (arrayListArgs.contains("-o"))
             return arrayListArgs.get(arrayListArgs.indexOf("-o") + 1);
@@ -37,6 +43,12 @@ public class CliArgs {
             return "";
     }
 
+    /**
+     * Определяет префикс, в зависимости от наличия параметра "-p" и его аргумента.
+     *
+     * @param arrayListArgs - список параметров, полученных из командной строки при запуске программы (String[] args).
+     * @return строка с префиксом.
+     */
     private String getPrefixFromArgs(ArrayList<String> arrayListArgs) {
         if (arrayListArgs.contains("-p"))
             return arrayListArgs.get(arrayListArgs.indexOf("-p") + 1);
@@ -44,18 +56,42 @@ public class CliArgs {
             return "";
     }
 
+    /**
+     * Определяет, указан ли режим добавления в файл (параметр "-a").
+     *
+     * @param arrayListArgs - список параметров, полученных из командной строки при запуске программы (String[] args).
+     * @return boolean указан режим добавления или нет.
+     */
     private boolean isAddingMode(ArrayList<String> arrayListArgs) {
         return arrayListArgs.contains("-a");
     }
 
-    private boolean isBriefStatistics(ArrayList<String> arrayListArgs) {
+    /**
+     * Определяет, нужно ли отобразить краткую статистику (параметр "-s").
+     *
+     * @param arrayListArgs - список параметров, полученных из командной строки при запуске программы (String[] args).
+     * @return boolean отобрать краткую статистику или нет.
+     */
+    private boolean isShortStatistics(ArrayList<String> arrayListArgs) {
         return arrayListArgs.contains("-s");
     }
 
+    /**
+     * Определяет, нужно ли отобразить полную статистику (параметр "-f").
+     *
+     * @param arrayListArgs - список параметров, полученных из командной строки при запуске программы (String[] args).
+     * @return boolean отобрать полную статистику или нет.
+     */
     private boolean isFullStatistics(ArrayList<String> arrayListArgs) {
         return arrayListArgs.contains("-f");
     }
 
+    /**
+     * Ищет все переданные файлы в формате .txt, данные из которых нужно отсортировать.
+     *
+     * @param arrayListArgs - список параметров, полученных из командной строки при запуске программы (String[] args).
+     * @return список полных/относительных путей до файлов.
+     */
     private List<String> findAllFilesInArgs(ArrayList<String> arrayListArgs) {
         return arrayListArgs.stream().filter(str -> str.contains(".txt")).toList();
     }
@@ -72,8 +108,8 @@ public class CliArgs {
         return addingMode;
     }
 
-    public boolean isBriefStatistics() {
-        return briefStatistics;
+    public boolean isShortStatistics() {
+        return shortStatistics;
     }
 
     public boolean isFullStatistics() {

@@ -13,6 +13,12 @@ import java.util.stream.Collectors;
  */
 
 public class FileReader {
+    /**
+     * Считывает все строки из файла .txt.
+     *
+     * @param filePath - полный путь до файла.
+     * @return List<String> - список извлеченных строк.
+     */
     public static List<String> readDataFromTxt(String filePath) {
         try {
             return Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
@@ -23,6 +29,12 @@ public class FileReader {
         }
     }
 
+    /**
+     * Считывает все строки из файлов .txt.
+     *
+     * @param filePaths - список полных путей до файлов.
+     * @return List<String> - список извлеченных строк.
+     */
     public static List<String> readDataFromTxt(List<String> filePaths) {
         return filePaths.stream()
                 .flatMap(filePath -> readDataFromTxt(filePath).stream())

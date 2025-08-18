@@ -12,6 +12,12 @@ import java.util.stream.Collectors;
  * 3. String
  */
 public class DataSort {
+    /**
+     * Извлекает числа с плавающей точкой из переданного списка.
+     *
+     * @param data - список строк.
+     * @return List<Float> - список Float.
+     */
     public static List<Float> extractFloatsFromList(List<String> data) {
         return data.stream()
                 .map(str -> {
@@ -29,6 +35,12 @@ public class DataSort {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Извлекает целочисленные значения из переданного списка.
+     *
+     * @param data - список строк.
+     * @return List<Integer> - список Integer.
+     */
     public static List<Integer> extractIntegersFromList(List<String> data) {
         return data.stream()
                 .map(str -> {
@@ -42,6 +54,13 @@ public class DataSort {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Извлекает строки из переданного списка. Строками считается все, кроме целых
+     * чисел и чисел с плавающей точкой.
+     *
+     * @param data - список строк.
+     * @return List<String> - список String.
+     */
     public static List<String> extractStringsFromList(List<String> data) {
         return data.stream()
                 .map(str -> {
@@ -56,6 +75,15 @@ public class DataSort {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Создает мапу <"тип объекта": List<?>> из переданного списка строк. Список ключей:
+     * 1. "float"
+     * 2. "int"
+     * 3. "String"
+     *
+     * @param data - список строк.
+     * @return HashMap<String, List<?>> - мапа, состоящая из отсортированных данных.
+     */
     public static HashMap<String, List<?>> sortData(List<String> data) {
         return new HashMap<>()
         {{
