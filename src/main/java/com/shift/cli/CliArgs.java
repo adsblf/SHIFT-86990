@@ -3,6 +3,7 @@ package com.shift.cli;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Класс предназначен для хранения параметров вводимых из командной строки при запуске программы:
@@ -38,7 +39,14 @@ public class CliArgs {
      */
     private String getOutputPathFromArgs(ArrayList<String> arrayListArgs) {
         if (arrayListArgs.contains("-o"))
-            return arrayListArgs.get(arrayListArgs.indexOf("-o") + 1);
+            try {
+                return arrayListArgs.get(arrayListArgs.indexOf("-o") + 1);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Вы не указали путь для сохранения файлов после аргумента \"-o\". Я продолжу работу, " +
+                        "но запишу файлы в корневую директорию проекта.");
+                System.out.println(e.getMessage());
+                return "";
+            }
         else
             return "";
     }
@@ -51,7 +59,14 @@ public class CliArgs {
      */
     private String getPrefixFromArgs(ArrayList<String> arrayListArgs) {
         if (arrayListArgs.contains("-p"))
-            return arrayListArgs.get(arrayListArgs.indexOf("-p") + 1);
+            try {
+                return arrayListArgs.get(arrayListArgs.indexOf("-p") + 1);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Вы не указали префикс после аргумента \"-p\". Я продолжу работу, но оставлю " +
+                        "имена файлов по умолчанию.");
+                System.out.println(e.getMessage());
+                return "";
+            }
         else
             return "";
     }
@@ -93,7 +108,14 @@ public class CliArgs {
      * @return список полных/относительных путей до файлов.
      */
     private List<String> findAllFilesInArgs(ArrayList<String> arrayListArgs) {
-        return arrayListArgs.stream().filter(str -> str.contains(".txt")).toList();
+        List<String> files = arrayListArgs.stream()
+                .filter(str -> str.contains(".txt"))
+                .toList();
+
+        if (files.isEmpty())
+            throw new NoSuchElementException("Кажется вы забыли передать мне файлы с расширением .txt");
+
+        return files;
     }
 
     public String getOutputPath() {
