@@ -43,6 +43,7 @@ public class NumbersStatistic<T extends Number> extends Statistic<T> {
         return averageNum;
     }
 
+
     /**
      * Функция поиска минимального элемента в списке.
      *
@@ -74,6 +75,10 @@ public class NumbersStatistic<T extends Number> extends Statistic<T> {
      * @return сумма элементов типа BigDecimal.
      */
     private BigDecimal sumNum(List<T> arrayList) {
+        if (arrayList.size() == 0) {
+            return null;
+        }
+
         return arrayList.stream()
                 .filter(Objects::nonNull)
                 .map(NumbersStatistic::convertToBigDecimal)
@@ -87,6 +92,10 @@ public class NumbersStatistic<T extends Number> extends Statistic<T> {
      * @return среднее значение типа BigDecimal.
      */
     private BigDecimal averageNum(List<T> arrayList) {
+        if (arrayList.size() == 0) {
+            return null;
+        }
+
         return sumNum(arrayList)
                 .divide(new BigDecimal(arrayList.size()), RoundingMode.HALF_UP);
     }

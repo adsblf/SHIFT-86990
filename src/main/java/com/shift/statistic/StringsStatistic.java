@@ -60,7 +60,7 @@ public class StringsStatistic extends Statistic <String> {
      */
     public String getFullStatistics() {
         return getShortStatistic() +
-                "\nМаксимум: \"" + maxString + "\" Количество элементов: " + maxString.length() +
-                "\nМинимум: \"" + minString + "\" Количество элементов: " + minString.length();
+                "\nСамая длинная строка: \"" + maxString + "\" - количество символов: " + maxString.length() +
+                "\nСамая короткая строка: \"" + minString + "\" - количество символов: " + minString.length();
     }
 }
